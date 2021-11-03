@@ -1,0 +1,16 @@
+{
+  "name": "ts-study",
+  "version": "1.0.0",
+  "description": "typescripe 学习实践",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node ./src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/shdulu/ts-study.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
