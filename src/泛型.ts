@@ -73,3 +73,7 @@ logger1<string>("dulu"); // 只能传包含 length属性的
 let obj = { length: 10, name: "dulu" };
 type Obj = typeof obj;
 logger1<Obj>({ length: 90, name: "123" });
+
+// 默认泛型
+interface T2<T = string> {}
+type T22 = T2

@@ -113,4 +113,15 @@ function createClass(clazz: WithNameClass, name: string) {
   return new clazz(name);
 }
 let a = createClass(Animal, "Dulu");
-console.log(a.name)
+console.log(a.name);
+
+namespace b {
+  class Component {
+    static myName: string = "静态名称属性";
+    myName: string = "实例名称属性";
+  }
+  let com = Component;
+  // Component 类名本身表示的是实例的类型
+  let c: Component = new Component();
+  let f: typeof Component = com;
+}
