@@ -41,7 +41,6 @@ let sum: Calculate<number> = function (a: number, b: number): number {
 };
 sum(1, 2);
 
-
 interface Calculate2<T> {
   <U>(a: T, b: T): U;
 }
@@ -76,4 +75,21 @@ logger1<Obj>({ length: 90, name: "123" });
 
 // 默认泛型
 interface T2<T = string> {}
-type T22 = T2
+type T22 = T2;
+
+// 泛型兼容性
+interface Empty<T> {
+  // data: T
+}
+let x!: Empty<string>;
+let y!: Empty<number>;
+
+x = y;
+enum Colors {
+  Red,
+  Yellow,
+}
+let c:Colors
+c = Colors.Red
+c =1 // 数组和枚举是兼容的
+// c = '1' 

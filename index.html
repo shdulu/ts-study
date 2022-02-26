@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function add(a, b) {
+        return a + b;
+      }
+
+      var curried = curry(add);
+      const r = curried(3)(4);
+
+      function curry(targetfn) {
+        const argsLen = targetfn.length;
+        return function curried() {
+          // 参数个数小于的话把之前传入的参数收集起来，再次返回curry化的函数
+          if (argsLen > arguments.length) {
+            // bind 返回一个新函数必须调用后才能执行
+            // bind 和 apply 传参方式相同
+            // call
+            return curried.bind(null, ...arguments); // 返回不能立即执行
+          } else {
+            // 参数个数收集完成之后执行 目标函数
+            return targetfn(...arguments); // 调用函数执行
+          }
+        };
+      }
+      function calc() {
+        const args = [...arguments];
+        return args.reduce((prev, curr) => {
+          return prev * curr;
+        }, 1);
+      }
+      const aa =calc(9, 1, 3, 2);
+      console.log(aa, '00000000000')
+
+      let memoize = function(func, content) {
+        let cache = Object.create(null)
+        content = content || this
+        return (...key) => {
+          if(!cache[key]) {
+            cache[key] = func.apply(content, key)
+          }
+          return cache[key]
+        }
+      }
+      
+    </script>
+  </body>
+</html>
