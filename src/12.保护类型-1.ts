@@ -1,6 +1,6 @@
 // 自定义的类型保护 !!
 export { }
-
+// 通过一些关键字 typeof instanceof for in 来缩小范围
 // 类型保护就是一些表达式，他们在编译的时候就能通过类型信息确保某个作用域内变量的类型
 // 类型保护就是能够通过关键字判断出分支中的类型
 
@@ -37,12 +37,14 @@ function getName(animal: Animal) {
 // 如果开启了strictNullChecks选项，那么对于可能为null的变量不能调用它上面的方法和属性
 function getFirstLetter(s: string | null) {
   //第一种方式是加上null判断
-  if (s == null) {
-    return '';
-  }
+  // if (s == null) {
+  //   return '';
+  // }
   //第二种处理是增加一个或的处理
-  s = s || '';
-  return s.charAt(0);
+  // s = s || '';
+  // 第三种方式 !. 强制断言
+
+  return s!.charAt(0);
 }
 //它并不能处理一些复杂的判断，需要加非空断言操作符
 function getFirstLetter2(s: string | null) {
@@ -120,7 +122,7 @@ function getNumber(x: Bird | Dog) {
   return x.leg
 }
 
-// 9.7 自定义的类型保护
+// 9.7 自定义的类型保护 难度!!
 // - Typescript 里的类型保护本质上就是一些表达式，它们会在运行时检查类型信息，以确保在某个作用域里的类型是符合预期的
 // - type is Type1Class就是类型谓词
 // - 谓词为 parameterName is Type这种形式,parameterName必须是来自于当前函数签名里的一个参数名

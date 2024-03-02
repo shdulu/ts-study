@@ -79,6 +79,7 @@ console.log(`韩梅梅是${Gender.GIRL}`)
 
 // 常数枚举 使用 const enum 定义
 // 常数枚举与普通枚举的区别是， 它会在编译阶段被删除，并且不能包含计算成员
+// 假如包含了计算成员，会在编译阶段报错
 const enum Directions {
   Up,
   Down,
@@ -201,7 +202,7 @@ console.log(uname.length);
 let shname: string | number;
 console.log((shname as string).length);
 console.log((shname as number).toFixed(2));
-// console.log((shname as boolean)); 不能将联合类型断言为不存在的类型
+console.log((shname as boolean));  // 不能将联合类型断言为不存在的类型
 // 双重断言
 interface Person {
   name: string;
