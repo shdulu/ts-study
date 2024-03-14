@@ -45,3 +45,24 @@ type R = Diff<"a" | "b" | "c" | "d", "a" | "c" | "f">; // "b" | "d"
 
 type Filter<T, U> = T extends U ? T : never;
 type R1 = Filter<string | number | boolean, number>;
+
+// in 关键字
+// in 关键字用于判断某个属性是否存在于对象中的方法。in 关键字可以在编译阶段检查对象是否具有特定属性，从而避免在运行时出现错误
+// 用途: 类型守卫 和迭代 proprties
+// 1.类型守卫 -> 判断某个属性是否存在于某个对象中
+// 2.in 关键字还可以迭代对象属性，并执行相应操作
+
+namespace In {
+  interface Person {
+    name: string;
+    age?: number;
+    email: string
+  }
+  function printPerson(person: Person) {
+    if ("age" in person) { // in 类型守卫，判断属性是否在对象中，编译阶段检查属性存在，避免运行错误
+      console.log(`{person.name} is{person.age} years old.`);
+    } else {
+      console.log(`${person.name}'s age is unknown.`);
+    }
+  }
+}
