@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Object.setPrototypeOf() 静态方法可以将一个指定对象的原型（即内部的 [[Prototype]] 属性）设置为另一个对象或者 null。
+      var myObj = {};
+      Object.defineProperty(myObj, "a", {
+        enumerable: true,
+        value: "this is a",
+      });
+      Object.defineProperty(myObj, "b", {
+        enumerable: false,
+        value: "this is b",
+      });
+      myObj.__proto__.c = "this is c";
+      console.log("a" in myObj); // true
+      console.log("b" in myObj); // true
+      console.log("c" in myObj); // true
+      console.log(myObj.hasOwnProperty("a")); // true
+      console.log(myObj.hasOwnProperty("b")); // true
+      console.log(myObj.hasOwnProperty("c")); // false
+      for (const key in myObj) {
+        console.log(key); // a c
+      }
+      console.log("propertyIsEnumerable-a", myObj.propertyIsEnumerable("a")); // true
+      console.log("propertyIsEnumerable-b", myObj.propertyIsEnumerable("b")); // false
+      console.log("propertyIsEnumerable-c", myObj.propertyIsEnumerable("c")); // false
+      console.log("Object.keys", Object.keys(myObj)); // ['a']
+      console.log( 
+        "Object.getOwnPropertyNames",
+        Object.getOwnPropertyNames(myObj)
+      ); // ['a', 'b']
+    </script>
+  </body>
+</html>

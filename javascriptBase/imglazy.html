@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>实现图片懒加载</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      line-height: 50px;
+    }
+    #root {
+      margin: 0 auto;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <div id="root">
+      <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+      </ul>
+      <img
+        style="width: 600px; height: 450px;"
+        src="../source/default-1.png"
+        data-src="../source/付款码.jpg"
+      />
+      <ul>
+        <li>第二1</li>
+        <li>第二1</li>
+        <li>第二1</li>
+        <li>第二1</li>
+        <li>第二1</li>
+        <li>第二1</li>
+        <li>第二1</li>
+        <li>第二1</li>
+        <li>第二1</li>
+        <li>第二1</li>
+      </ul>
+      <img
+        style="width: 600px; height: 450px;"
+        src="../source/default-1.png"
+        data-src="../source/付款码.jpg"
+      />
+      <p>内容一行</p>
+      <p>内容一行</p>
+      <p>内容一行</p>
+      <p>内容一行</p>
+      <p>内容一行</p>
+      <p>内容一行</p>
+      <p>内容一行</p>
+      <p>内容一行</p>
+      <p>内容一行</p>
+      <p>内容一行</p>
+      <img
+        style="width: 600px; height: 450px;"
+        src="../source/default-1.png"
+        data-src="../source/付款码1.jpg"
+      />
+    </div>
+  </body>
+  <script>
+    let imgs = document.getElementsByTagName("img");
+    let num = imgs.length;
+    let count = 0; //计数器，从第一张图片开始计
+    lazyload2(); //首次加载别忘了显示图片
+    window.addEventListener("scroll", lazyload2);
+    // 方式一：通过监听 scroll 事件来判断图片是否到达视口
+    function lazyload() {
+      let viewHeight = document.documentElement.clientHeight; //视口高度
+      let scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop; //滚动条卷去的高度
+      for (let i = count; i < num; i++) {
+        // 元素现在已经出现在视口中
+        if (imgs[i].offsetTop < scrollTop + viewHeight) {
+          if (imgs[i].getAttribute("src") !== "../source/default-1.png")
+            continue;
+          imgs[i].src = imgs[i].getAttribute("data-src");
+          count++;
+          imgs[i].addEventListener("error", (event) => {
+            // 加载失败使用默认图片
+            imgs[i].src = "../source/付款码.jpg";
+          });
+        }
+      }
+    }
+    /**
+     * 方式二
+     * Element.getBoundingClientRect()
+     * 方法返回一个 DOMRect 对象，其提供了元素的大小及其相对于视口的位置。
+     *
+     * */
+    function lazyload1() {
+      for (let i = count; i < num; i++) {
+        // 元素现在已经出现在视口中
+        if (
+          // [ˈbaʊndɪŋ]
+          imgs[i].getBoundingClientRect().top <
+          document.documentElement.clientHeight
+        ) {
+          if (imgs[i].getAttribute("src") !== "../source/default-1.png")
+            continue;
+          imgs[i].src = imgs[i].getAttribute("data-src");
+          count++;
+          imgs[i].addEventListener("error", (event) => {
+            // 加载失败使用默认图片
+            imgs[i].src = "../source/element-box-diagram.png";
+          });
+        }
+      }
+    }
+
+    /**
+     * 异步观察目标元素与其祖先元素或顶级文档视口（viewport）交叉状态的方法。其祖先元素或视口被称为根（root）。
+     *
+     * */
+    function lazyload2() {
+      const observer = new IntersectionObserver((changes) => {
+        for (let i = 0, len = changes.length; i < len; i++) {
+          let change = changes[i];
+          // 通过这个属性判断是否在视口中
+          if (change.isIntersecting) {
+            const imgElement = change.target;
+            if (imgs[i].getAttribute("src") === "../source/default-1.png") {
+              imgElement.src = imgElement.getAttribute("data-src");
+              imgElement.addEventListener("error", (event) => {
+                // 加载失败使用默认图片
+                imgElement.src = "../source/付款码.jpg";
+              });
+            }
+            count++;
+            // observer.unobserve 停止监听特定目标元素。
+            observer.unobserve(imgElement);
+          }
+        }
+      });
+      // observer.observe 开始监听一个目标元素。
+      Array.from(imgs).forEach((item) => observer.observe(item));
+    }
+  </script>
+</html>

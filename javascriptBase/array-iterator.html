@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数组的迭代器对象</title>
+  </head>
+  <body>
+    <script>
+      // 数组对象内置了 @@iterator 
+      // 使用for..of 循环可以遍历数组值
+      // for..of 循环首先会向被访问对象请求一个迭代器对象，然后通过调用迭代器对象的next()方法来遍历所有的值
+
+      var myArray = [1, 2, 3, 4];
+      var it = myArray[Symbol.iterator]();
+      console.log(it.next());
+      console.log(it.next());
+      console.log(it.next());
+      console.log(it.next());
+      console.log(it.next());
+    </script>
+  </body>
+</html>
