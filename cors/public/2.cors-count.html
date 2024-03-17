@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p id="notice"></p>
+    <script>
+      // 使用 fetch API 发送 GET 请求到计数端点
+      async function getCount() {
+        try {
+          const response = await fetch("http://localhost:4000/count", {
+            method: "GET",
+            credentials: "include", // 需要包含此行以发送 Cookie
+          }).then((response) => response.json());
+          document.getElementById(
+            "notice"
+          ).innerHTML = `Count: ${response.count}`;
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+      getCount();
+    </script>
+  </body>
+</html>

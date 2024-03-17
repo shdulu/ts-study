@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      (async function () {
+        try {
+          // 使用 fetch API 发送 GET 请求到指定的 URL
+          const response = await fetch("http://localhost:4000/users", {
+            // 指定请求方法为 GET
+            method: "GET",
+            // 指定请求头，表明期望的响应格式为 JSON
+            headers: {
+              Accept: "application/json",
+            },
+            // 使用 then 方法将响应对象转换为 JSON 格式
+          }).then((response) => {
+            for (let [key, value] of response.headers) {
+              console.log(`${key}: ${value}`);
+            }
+            console.log(response.headers.get("content-type"));
+            return response.json();
+          });
+          // 打印获取到的响应
+          console.log("response ", response);
+        } catch (error) {
+          // 如果有任何错误，打印错误信息
+          console.error("Error:", error);
+        }
+      })();
+    </script>
+  </body>
+</html>

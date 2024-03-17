@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>a</title>
+  </head>
+  <body>
+    <input type="text" id="inputBox" />
+    <button id="btn">发送消息</button>
+    <script>
+      // 创建一个新的WebSocket对象，连接到指定的URL
+      let socket = new WebSocket("ws://localhost:4000");
+      // 设置连接打开时的回调函数
+      socket.onopen = function (event) {
+        // 在控制台打印消息，表示连接已经打开
+        console.log("Connection open");
+        // 通过WebSocket连接发送一条消息，消息内容为'hello'
+        socket.send("hello to server");
+      };
+      // 设置接收到服务器消息时的回调函数
+      socket.onmessage = function (event) {
+        // 在控制台打印接收到的消息
+        console.log("Received data: " + event.data);
+      };
+      var inputVal;
+      inputBox.addEventListener("input", (e) => {
+        inputVal = e.target.value;
+      });
+      btn.addEventListener("click", () => socket.send(inputVal));
+    </script>
+  </body>
+</html>

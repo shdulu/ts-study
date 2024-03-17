@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>add.html</title>
+  </head>
+  <body>
+    <script>
+      // 定义一个立即执行的异步函数
+      (async function () {
+        try {
+          // 使用 fetch API 发送 GET 请求到指定的 URL
+          const response = await fetch("http://localhost:4000/users", {
+            // 指定请求方法为 GET
+            method: "POST",
+            // 指定请求头，表明期望的响应格式为 JSON
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({ name: "李四" }),
+            // 使用 then 方法将响应对象转换为 JSON 格式
+          }).then((response) => response.json());
+          // 打印获取到的响应
+          console.log("response ", response);
+        } catch (error) {
+          // 如果有任何错误，打印错误信息
+          console.error("Error:", error);
+        }
+        // 立即执行上述定义的函数
+      })();
+    </script>
+  </body>
+</html>

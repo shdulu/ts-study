@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>b</title>
+  </head>
+  <body>
+    <script>
+      // 在当前窗口添加 message 事件监听器，用于处理从其他源发送过来的消息
+      window.addEventListener(
+        "message",
+        function (event) {
+          console.log(event.source); //Window
+          console.log(event.origin); //http://localhost:3000
+          // 使用 postMessage 向发送消息的源返回消息
+          event.source.postMessage("world", event.origin);
+        },
+        false
+      );
+    </script>
+  </body>
+</html>
