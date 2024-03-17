@@ -1,4 +1,5 @@
-type Rt = Exclude<string | number, number | boolean>;
-const r: Rt = 12;
-
-export {};
+export namespace Numbers {
+  export let a = 1;
+  export let b = 2;
+  export let c = 3;
+}
