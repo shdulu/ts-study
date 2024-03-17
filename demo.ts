@@ -1,5 +1,9 @@
-export namespace Numbers {
-  export let a = 1;
-  export let b = 2;
-  export let c = 3;
+export {}
+interface A {
+  a1: string;
+  a2: number;
+  a3: boolean;
 }
+type Apar = Partial<A>;
+type IPartial<T> = { [key in keyof T]: T[key] };
+type Ta = keyof A
